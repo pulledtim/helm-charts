@@ -1,0 +1,6 @@
+helm-extra-args: --timeout 1200s
+check-version-increment: true
+debug: true
+target-branch: main
+chart-repos:
+  - pulledtim=https://pulledtim.github.io/helm-charts
