@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  openrouteservice:
+  - apiVersion: v1
+    appVersion: v0.0.1
+    created: "2024-03-15T11:12:03.519179978Z"
+    description: A Helm chart for running openrouteservice on kubernetes.
+    digest: 3ee9428638c34da0a6e497ac8f2cd9a2b902a5f3def77f69f0db8e57a71db5dc
+    keywords:
+    - osm
+    - routing
+    maintainers:
+    - email: tim.smyth@fiware.org
+      name: pulledtim
+    name: openrouteservice
+    sources:
+    - https://github.com/GIScience/openrouteservice/tree/main
+    urls:
+    - https://github.com/pulledtim/helm-charts/releases/download/openrouteservice-0.0.1/openrouteservice-0.0.1.tgz
+    version: 0.0.1
+generated: "2024-03-15T11:12:03.519189345Z"
