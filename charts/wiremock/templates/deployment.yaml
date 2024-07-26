@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "wiremock.fullname" . }}
+  labels:
+    {{- include "wiremock.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "wiremock.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- include "wiremock.podAnnotations" . | nindent 8 }}
+      labels:
+        {{- include "wiremock.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "wiremock.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
+          args:
+          {{- range .Values.args }}
+            - {{ . | quote }}
+          {{- end }}
+          {{- end }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /__admin/mappings
+              port: {{ .Values.service.internalPort }}
+              scheme: {{ .Values.scheme }}
+          readinessProbe:
+            httpGet:
+              path: /__admin/mappings
+              port: {{ .Values.service.internalPort }}
+              scheme: {{ .Values.scheme }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /home/wiremock/storage/mappings
+              name: mappings-data
+            - mountPath: /home/wiremock/storage/__files
+              name: responses-data
+      initContainers:
+        - name: copy-mappings
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
+          imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+          command: ["bash", "-c", "cp  -rf /data/mappings /home/wiremock/storage/mappings"]
+          volumeMounts:
+            - mountPath: /data/mappings
+              name: mappings-volume
+            - mountPath: /home/wiremock/storage/mappings
+              name: mappings-data
+        - name: copy-responses
+          image: "{{ .Values.initContainer.image.repository }}:{{ .Values.initContainer.image.tag }}"
+          imagePullPolicy: {{ .Values.initContainer.image.pullPolicy }}
+          command: ["bash", "-c", "cp  -rf /data/responses /home/wiremock/storage/__files"]
+          volumeMounts:
+            - mountPath: /data/responses
+              name: responses-volume
+            - mountPath: /home/wiremock/storage/__files
+              name: responses-data
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: mappings-data
+          emptyDir: {}
+        - name: responses-data
+          emptyDir: {}
+        - name: mappings-volume
+          configMap:
+            name: {{ include "wiremock.fullname" . }}-mappings-configs
+        - name: responses-volume
+          configMap:
+            name: {{ include "wiremock.fullname" . }}-responses-configs

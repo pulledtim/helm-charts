@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "wiremock.fullname" . }}-mappings-configs
+  labels:
+    {{- include "wiremock.labels" . | nindent 4 }}
+data:
+  {{- $files := .Files }}
+  {{- range $key, $value := .Files }}
+  {{- if hasPrefix "mappings/" $key }} {{/* only when in mappings/ */}}
+  {{ $key | trimPrefix "mappings/" }}: {{ $files.Get $key | quote }} {{/* adapt $key as desired */}}
+  {{- end }}
+  {{- end }}
+  {{- with .Values.mappings}}
+  {{- toYaml . | nindent 2}}
+  {{- end}}
