@@ -1,0 +1,10 @@
+apiVersion: v1
+name: ngsild-subscriber
+version: 2.0.0
+appVersion: v0.0.1
+description: A Helm chart for creating subscriptions in NGSI-LD context brokers
+keywords:
+  - NGSI-LD
+maintainers:
+  - name: pulledtim
+    email: tim.smyth@fiware.org

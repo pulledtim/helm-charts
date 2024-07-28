@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ngsild-subscriber.fullname" . }}
+  namespace: {{ $.Release.Namespace | quote }}
+  labels:
+    {{- include "ngsild-subscriber.labels" . | nindent 4 }}
+data:
+  subscription.json: |-
+    {{- .Values.subscription | nindent 4 }}
+  script.sh: |
+    curl --retry 50 \
+    --retry-delay 10 \
+    --connect-timeout 10 \
+    -w "%{response_code}" \
+    -X POST \
+    -H 'Content-Type: application/json-ld' \
+    -d @./subscription.json \
+    http://{{ .Values.broker }}/ngsi-ld/v1/subscriptions/
