@@ -1,6 +1,6 @@
 # ngsild-subscriber
 
-![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![AppVersion: v0.0.1](https://img.shields.io/badge/AppVersion-v0.0.1-informational?style=flat-square)
+![Version: 2.0.1](https://img.shields.io/badge/Version-2.0.1-informational?style=flat-square) ![AppVersion: v0.0.1](https://img.shields.io/badge/AppVersion-v0.0.1-informational?style=flat-square)
 
 A Helm chart for creating subscriptions in NGSI-LD context brokers
 
@@ -14,6 +14,7 @@ A Helm chart for creating subscriptions in NGSI-LD context brokers
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| backoffLimit | int | `10` |  |
 | broker | string | `"context-broker:1026"` |  |
 | deployment.image.pullPolicy | string | `"IfNotPresent"` |  |
 | deployment.image.repository | string | `"curlimages/curl"` |  |
