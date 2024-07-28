@@ -13,6 +13,8 @@ deployment:
     repository: curlimages/curl
     tag: 8.9.0
 
+backoffLimit: 10
+
 broker: context-broker:1026
 
 subscription: | 

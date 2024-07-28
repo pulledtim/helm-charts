@@ -6,8 +6,10 @@ metadata:
   labels:
     {{- include "ngsild-subscriber.labels" . | nindent 4 }}
 spec:
+  backoffLimit: {{ .Values.backoffLimit }}
   template:
     spec:
+      restartPolicy: OnFailure
       containers:
         - name: register-subscription
           imagePullPolicy: {{.Values.deployment.image.pullPolicy}}
