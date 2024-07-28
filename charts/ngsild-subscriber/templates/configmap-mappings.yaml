@@ -9,7 +9,7 @@ data:
   subscription.json: |-
     {{- .Values.subscription | nindent 4 }}
   script.sh: |
-    curl --retry 50 \
+    curl --retry 10 \
     --retry-delay 10 \
     --connect-timeout 10 \
     -w "%{response_code}" \
