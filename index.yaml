@@ -1,5 +1,20 @@
 apiVersion: v1
 entries:
+  ngsild-subscriber:
+  - apiVersion: v1
+    appVersion: v0.0.1
+    created: "2024-07-28T06:32:17.451776732Z"
+    description: A Helm chart for creating subscriptions in NGSI-LD context brokers
+    digest: 3255edb831032b768d1e7477de932fb55122a9b473d6411cfd2de549cab014db
+    keywords:
+    - NGSI-LD
+    maintainers:
+    - email: tim.smyth@fiware.org
+      name: pulledtim
+    name: ngsild-subscriber
+    urls:
+    - https://github.com/pulledtim/helm-charts/releases/download/ngsild-subscriber-2.0.0/ngsild-subscriber-2.0.0.tgz
+    version: 2.0.0
   openrouteservice:
   - apiVersion: v1
     appVersion: v0.0.1
@@ -75,4 +90,4 @@ entries:
     urls:
     - https://github.com/pulledtim/helm-charts/releases/download/wiremock-1.1.0/wiremock-1.1.0.tgz
     version: 1.1.0
-generated: "2024-07-26T13:37:16.607972749Z"
+generated: "2024-07-28T06:32:17.451804323Z"
