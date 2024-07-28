@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "ngsild-subscriber.fullname" . }}
+  namespace: {{ $.Release.Namespace | quote }}
+  labels:
+    {{- include "ngsild-subscriber.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: register-subscription
+          imagePullPolicy: {{.Values.deployment.image.pullPolicy}}
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+          command: ["sh", "-c", "/script/script.sh"]
+          resources:
+            {{- toYaml .Values.deployment.resources | nindent 12}}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /script
+      volumes:
+        - name: config-volume
+          configMap:
+            name:  {{ include "ngsild-subscriber.fullname" . }}
+      {{- with .Values.deployment.nodeSelector}}
+      nodeSelector:
+        {{- toYaml . | nindent 8}}
+      {{- end}}
+      {{- with .Values.deployment.affinity}}
+      affinity:
+        {{- toYaml . | nindent 8}}
+      {{- end}}
+      {{- with .Values.deployment.tolerations}}
+      tolerations:
+        {{- toYaml . | nindent 8}}
+      {{- end}}

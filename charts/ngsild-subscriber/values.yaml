@@ -1,0 +1,19 @@
+## Default values for ngsild-subscriber.
+## This is a YAML-formatted file.
+## Declare variables to be passed into your templates.
+
+# -- option to override the name config in the _helpers.tpl
+nameOverride: ""
+# -- option to override the fullname config in the _helpers.tpl
+fullnameOverride: ""
+
+deployment:
+  image:
+    pullPolicy: IfNotPresent
+    repository: curlimages/curl
+    tag: 8.9.0
+
+broker: context-broker:1026
+
+subscription: | 
+  {}
