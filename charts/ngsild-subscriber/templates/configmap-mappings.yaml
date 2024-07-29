@@ -15,5 +15,5 @@ data:
     -w "%{response_code}" \
     -X POST \
     -H 'Content-Type: application/json-ld' \
-    -d @./subscription.json \
+    -d @/script/subscription.json \
     http://{{ .Values.broker }}/ngsi-ld/v1/subscriptions/
