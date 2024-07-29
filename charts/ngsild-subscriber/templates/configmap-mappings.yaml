@@ -14,6 +14,6 @@ data:
     --connect-timeout 10 \
     -w "%{response_code}" \
     -X POST \
-    -H 'Content-Type: application/json-ld' \
+    -H 'Content-Type: application/ld+json' \
     -d @/script/subscription.json \
     http://{{ .Values.broker }}/ngsi-ld/v1/subscriptions/
