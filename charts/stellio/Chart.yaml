@@ -1,0 +1,20 @@
+apiVersion: v2
+name: stellio-context-broker
+type: application
+version: 0.9.0
+appVersion: 2.17.1
+maintainers:
+  - name: lucboj_htag
+    email: lucas.bojer@hypertegrity.de
+description: An NGSI-LD compliant context broker
+dependencies:
+  - name: common
+    version: 2.6.0
+    repository: https://charts.bitnami.com/bitnami
+annotations:
+  artifacthub.io/images: |
+    - image: docker.io/confluentinc/cp-kafka:7.6.3
+    - image: docker.io/stellio/stellio-api-gateway:2.17.1
+    - image: docker.io/stellio/stellio-search-service:2.17.1
+    - image: docker.io/stellio/stellio-subscription-service:2.17.1
+    - image: docker.io/stellio/stellio-timescale-postgis:16-2.16.0-3.3
