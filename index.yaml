@@ -99,6 +99,31 @@ entries:
         - image: docker.io/stellio/stellio-timescale-postgis:16-2.16.0-3.3
     apiVersion: v2
     appVersion: 2.17.1
+    created: "2024-10-29T12:23:39.79813929Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 2.6.0
+    description: An NGSI-LD compliant context broker. Helm Chart adapted from https://github.com/teutonet/teutonet-helm-charts
+      and https://gitlab.com/urban-dataspace-platform/helm-charts/stellio-helm-chart
+    digest: a303016d9dfbbb515351ad7fca1fe38c336aa8611c3239c211fc3af0d1a90e45
+    maintainers:
+    - email: lucas.bojer@hypertegrity.de
+      name: lucboj_htag
+    name: stellio-context-broker
+    type: application
+    urls:
+    - https://github.com/pulledtim/helm-charts/releases/download/stellio-context-broker-2.0.3/stellio-context-broker-2.0.3.tgz
+    version: 2.0.3
+  - annotations:
+      artifacthub.io/images: |
+        - image: docker.io/confluentinc/cp-kafka:7.6.3
+        - image: docker.io/stellio/stellio-api-gateway:2.17.1
+        - image: docker.io/stellio/stellio-search-service:2.17.1
+        - image: docker.io/stellio/stellio-subscription-service:2.17.1
+        - image: docker.io/stellio/stellio-timescale-postgis:16-2.16.0-3.3
+    apiVersion: v2
+    appVersion: 2.17.1
     created: "2024-10-29T07:40:30.696210864Z"
     dependencies:
     - name: common
@@ -196,4 +221,4 @@ entries:
     urls:
     - https://github.com/pulledtim/helm-charts/releases/download/wiremock-1.1.0/wiremock-1.1.0.tgz
     version: 1.1.0
-generated: "2024-10-29T07:40:30.696283159Z"
+generated: "2024-10-29T12:23:39.798183898Z"
