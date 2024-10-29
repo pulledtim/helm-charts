@@ -1,0 +1,206 @@
+# Default values for stellio context broker
+global:
+  imageRegistry: docker.io
+  usePostgresOperator: false
+
+nameOverride: ""
+fullnameOverride: ""
+
+defaultPodSecurityContext: &defaultPodSecurityContext
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+
+defaultSecurityContext: &defaultSecurityContext
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  privileged: false
+  readOnlyRootFilesystem: true
+
+api_gateway:
+  replicaCount: 1
+
+  ingress:
+    enabled: false
+    className: ""
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    host: null
+    existingCertificate: ""
+
+  image:
+    registry: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    repository: stellio/stellio-api-gateway
+    tag: 2.17.1
+    digest: ""
+
+  enableCompression: "false" # Enable compression of the response body
+
+  podAnnotations: {}
+
+  podSecurityContext: *defaultPodSecurityContext
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  securityContext: *defaultSecurityContext
+
+kafka:
+  replicaCount: 1
+  image:
+    registry: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    repository: confluentinc/cp-kafka
+    tag: 7.6.3
+    digest: ""
+
+  persistence:
+    accessMode: ReadWriteOnce
+    storageClass: ""
+    size: 100Mi
+
+  clusterId: "ZGE2MTQ4NDk4NGU3NDE2Mm" # This is the cluster id that will be used by the brokers to identify themselves
+  
+  logRetentionHours: "24"
+
+  metadataMaxRetentionMs: "86400000"
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+postgres:
+  replicaCount: 1
+  credentials:
+    username: stellio
+    password: stellio_password
+  image:
+    registry: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    repository: stellio/stellio-timescale-postgis
+    tag: 16-2.16.0-3.3
+    digest: ""
+  persistence:
+    accessMode: ReadWriteOnce
+    storageClass: "openebs-hostpath"
+    size: 50Gi
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+search:
+  replicaCount: 1
+
+  postgresHost: 
+  postgresCredentialsSecret: 
+
+  image:
+    registry: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    repository: stellio/stellio-search-service
+    tag: 2.17.1
+    digest: ""
+  podAnnotations: {}
+
+  podSecurityContext: *defaultPodSecurityContext
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  securityContext: *defaultSecurityContext
+
+subscription:
+
+  postgresHost: 
+  postgresCredentialsSecret: 
+
+  replicaCount: 1
+  image:
+    registry: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    repository: stellio/stellio-subscription-service
+    tag: 2.17.1
+    digest: ""
+  podAnnotations: {}
+
+  podSecurityContext: *defaultPodSecurityContext
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  securityContext: *defaultSecurityContext
