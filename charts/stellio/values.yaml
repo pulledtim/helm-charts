@@ -30,6 +30,8 @@ api_gateway:
       kubernetes.io/tls-acme: "true"
     host: null
     existingCertificate: ""
+    tls:
+      enabled: true
 
   image:
     registry: ""
