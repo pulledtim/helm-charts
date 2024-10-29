@@ -16,10 +16,12 @@ spec:
   {{- if .Values.api_gateway.ingress.className }}
   ingressClassName: {{ .Values.api_gateway.ingress.className }}
   {{- end }}
+  {{- if .Values.api_gateway.ingress.tls.enabled -}}
   tls:
     - hosts:
         - {{ required "You must provide a host, when enabling ingress" .Values.api_gateway.ingress.host | quote }}
       secretName: {{ include "common.secrets.name" (dict "existingSecret" .Values.api_gateway.ingress.existingCertificate "defaultNameSuffix" "custom-certificate" "context" $) }}
+  {{- end }}
   rules:
     - host: {{ required "You must provide a host, when enabling ingress" .Values.api_gateway.ingress.host | quote }}
       http:
