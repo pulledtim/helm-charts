@@ -25,9 +25,9 @@ api_gateway:
   ingress:
     enabled: false
     className: ""
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
+    annotations: {}
+      #kubernetes.io/ingress.class: nginx
+      #kubernetes.io/tls-acme: "true"
     host: null
     existingCertificate: ""
     tls:
