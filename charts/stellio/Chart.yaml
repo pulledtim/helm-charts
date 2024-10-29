@@ -1,12 +1,12 @@
 apiVersion: v2
 name: stellio-context-broker
 type: application
-version: 2.0.0
+version: 2.0.2
 appVersion: 2.17.1
 maintainers:
   - name: lucboj_htag
     email: lucas.bojer@hypertegrity.de
-description: An NGSI-LD compliant context broker
+description: An NGSI-LD compliant context broker. Helm Chart adapted from https://github.com/teutonet/teutonet-helm-charts and https://gitlab.com/urban-dataspace-platform/helm-charts/stellio-helm-chart
 dependencies:
   - name: common
     version: 2.6.0
