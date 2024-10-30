@@ -107,19 +107,19 @@ spec:
             - name: APPLICATION_ENTITY_SERVICE-URL
               value: http://{{ $svcNameSearch }}.{{ include "common.names.namespace" .context }}.svc.cluster.local:{{ include "stellio.search.service.port" $  }}
             - name: APPLICATION_TENANTS_0_NAME
-              value: default_dataspace
+              value: {{ .global.defaultTenant }}
             - name: APPLICATION_TENANTS_0_ISSUER
               value: None
             - name: APPLICATION_TENANTS_0_DBSCHEMA
-              value: default_dataspace
+              value: {{ .global.defaultTenant }}
             {{- else -}}
             {{- if eq .name "search" }}
             - name: APPLICATION_TENANTS_0_NAME
-              value: default_dataspace
+              value: {{ .global.defaultTenant }}
             - name: APPLICATION_TENANTS_0_ISSUER
               value: None
             - name: APPLICATION_TENANTS_0_DBSCHEMA
-              value: default_dataspace
+              value: {{ .global.defaultTenant }}
             {{- end }}
             {{- end }}
             {{- if not .global.usePostgresOperator }}
@@ -172,7 +172,7 @@ spec:
               scheme: HTTP
               httpHeaders:
               - name: NGSILD-Tenant
-                value: default_dataspace
+                value: {{ .global.defaultTenant }}
             timeoutSeconds: 2
             periodSeconds: 30
             successThreshold: 1
@@ -184,7 +184,7 @@ spec:
               scheme: HTTP
               httpHeaders:
               - name: NGSILD-Tenant
-                value: default_dataspace
+                value: {{ .global.defaultTenant }}
             timeoutSeconds: 2
             periodSeconds: 30
             successThreshold: 1
