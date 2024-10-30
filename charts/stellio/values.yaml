@@ -2,9 +2,11 @@
 global:
   imageRegistry: docker.io
   usePostgresOperator: false
+  defaultTenant: "urn:ngsi-ld:tenant:default"
 
 nameOverride: ""
 fullnameOverride: ""
+
 
 defaultPodSecurityContext: &defaultPodSecurityContext
   runAsNonRoot: true
