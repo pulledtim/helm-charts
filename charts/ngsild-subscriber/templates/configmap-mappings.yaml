@@ -8,7 +8,7 @@ metadata:
 data:
   subscription.json: |-
     {{- .Values.subscription | nindent 4 }}
-  script.sh: |
+  script.sh: |-
     #!/bin/bash
     set -x
     HTTP_STATUS=$(curl -o /dev/null --connect-timeout 10 -s -w "%{http_code}" -X POST -H 'Content-Type: application/ld+json' -d @/script/subscription.json http://{{ .Values.broker }}/ngsi-ld/v1/subscriptions/)
