@@ -9,11 +9,13 @@ data:
   subscription.json: |-
     {{- .Values.subscription | nindent 4 }}
   script.sh: |
-    curl --retry 10 \
-    --retry-delay 10 \
-    --connect-timeout 10 \
-    -w "%{response_code}" \
-    -X POST \
-    -H 'Content-Type: application/ld+json' \
-    -d @/script/subscription.json \
-    http://{{ .Values.broker }}/ngsi-ld/v1/subscriptions/
+    #!/bin/bash
+    set -x
+    HTTP_STATUS=$(curl -o /dev/null --connect-timeout 10 -s -w "%{http_code}" -X POST -H 'Content-Type: application/ld+json' -d @/script/subscription.json http://{{ .Values.broker }}/ngsi-ld/v1/subscriptions/)
+    if [[ "$HTTP_STATUS" =~ ^2[0-9]{2}$ || "$HTTP_STATUS" == "204" || "$HTTP_STATUS" == "409" ]]; then
+      echo "Received expected status: $HTTP_STATUS"
+      exit 0
+    else
+      echo "Unexpected status: $HTTP_STATUS"
+      exit 1
+    fi
