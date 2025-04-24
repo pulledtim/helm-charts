@@ -16,6 +16,7 @@ deployment:
 backoffLimit: 10
 
 broker: context-broker:1026
+headers: {}
 
 subscription: | 
   {}
