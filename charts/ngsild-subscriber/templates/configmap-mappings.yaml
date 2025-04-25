@@ -11,10 +11,8 @@ data:
   script.sh: |-
     #!/bin/bash
     set -x
-    HEADERS="{{- range .Values.headers }}
-                -H {{ . }} \
-            {{- end }}"
-    HTTP_STATUS=$(curl -o /dev/null --connect-timeout 10 -s -w "%{http_code}" $HEADERS -X POST -H 'Content-Type: application/ld+json' {{ .Values.header }} -d @/script/subscription.json http://{{ .Values.broker }}/ngsi-ld/v1/subscriptions/)
+    HEADERS=({{ range .Values.headers }}"-H" "{{ . }}" {{ end }})
+    HTTP_STATUS=$(curl -o /dev/null --connect-timeout 10 -s -w "%{http_code}" "${HEADERS[@]}" -X POST -H 'Content-Type: application/ld+json' {{ .Values.header }} -d @/script/subscription.json http://{{ .Values.broker }}/ngsi-ld/v1/subscriptions/)
     if [[ "$HTTP_STATUS" =~ ^2[0-9]{2}$ || "$HTTP_STATUS" == "204" || "$HTTP_STATUS" == "409" ]]; then
       echo "Received expected status: $HTTP_STATUS"
       exit 0

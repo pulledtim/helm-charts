@@ -1,6 +1,6 @@
 # ngsild-subscriber
 
-![Version: 2.6.0](https://img.shields.io/badge/Version-2.6.0-informational?style=flat-square) ![AppVersion: v0.0.1](https://img.shields.io/badge/AppVersion-v0.0.1-informational?style=flat-square)
+![Version: 2.6.2](https://img.shields.io/badge/Version-2.6.2-informational?style=flat-square) ![AppVersion: v0.0.1](https://img.shields.io/badge/AppVersion-v0.0.1-informational?style=flat-square)
 
 A Helm chart for creating subscriptions in NGSI-LD context brokers
 
@@ -17,8 +17,8 @@ A Helm chart for creating subscriptions in NGSI-LD context brokers
 | backoffLimit | int | `10` |  |
 | broker | string | `"context-broker:1026"` |  |
 | deployment.image.pullPolicy | string | `"IfNotPresent"` |  |
-| deployment.image.repository | string | `"curlimages/curl"` |  |
-| deployment.image.tag | string | `"8.9.0"` |  |
+| deployment.image.repository | string | `"quay.io/pulledtim/bash-curl"` |  |
+| deployment.image.tag | string | `"latest"` |  |
 | fullnameOverride | string | `""` | option to override the fullname config in the _helpers.tpl |
 | headers | object | `{}` |  |
 | nameOverride | string | `""` | option to override the name config in the _helpers.tpl |
