@@ -10,8 +10,8 @@ fullnameOverride: ""
 deployment:
   image:
     pullPolicy: IfNotPresent
-    repository: curlimages/curl
-    tag: 8.9.0
+    repository: quay.io/pulledtim/bash-curl
+    tag: latest
 
 backoffLimit: 10
 
