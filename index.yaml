@@ -1,5 +1,19 @@
 apiVersion: v1
 entries:
+  mosquitto:
+  - apiVersion: v2
+    appVersion: 1.6.12
+    created: "2026-01-30T14:29:15.09070683Z"
+    description: Eclipse Mosquitto is an open source message broker which implements
+      MQTT version 5, 3.1.1 and 3.1
+    digest: d89f1bddfdcab6867adab316b9d95ed686b638229b97cd14de07764619a0ac5e
+    maintainers:
+    - email: tim.smyth@fiware.org
+      name: pulledtim
+    name: mosquitto
+    urls:
+    - https://github.com/pulledtim/helm-charts/releases/download/mosquitto-3.0.0/mosquitto-3.0.0.tgz
+    version: 3.0.0
   ngsild-subscriber:
   - apiVersion: v1
     appVersion: v0.0.1
@@ -341,4 +355,4 @@ entries:
     urls:
     - https://github.com/pulledtim/helm-charts/releases/download/wiremock-1.1.0/wiremock-1.1.0.tgz
     version: 1.1.0
-generated: "2025-04-25T06:59:42.260106641Z"
+generated: "2026-01-30T14:29:15.09075855Z"
