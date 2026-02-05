@@ -1,0 +1,37 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "openrouteservice.fullname" . }}-map
+  labels:
+    {{- include "openrouteservice.labels" . | nindent 4 }}
+  {{- with .Values.persistence.map.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+        {{- range .Values.persistence.map.accessModes }}
+        - {{ . | quote }}
+        {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.map.size | quote }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "openrouteservice.fullname" . }}-graph
+  labels:
+    {{- include "openrouteservice.labels" . | nindent 4 }}
+  {{- with .Values.persistence.graph.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+        {{- range .Values.persistence.graph.accessModes }}
+        - {{ . | quote }}
+        {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.graph.size | quote }}
